@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(../images/moneyBackground.jpg);
+    background-size: 20%;
+    background-position: center;
+}
+
+footer{
+    width: 100vw;
+    position: absolute;
+    bottom: 0px;
+}
+
+.card{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    background-image: url(../images/background.jpg);
+    box-shadow: 0 0 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    width: 140px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.btnEliminar{
+    width: 70px;
+    align-self: center;
+}
+
+.peopleContainer, .spentContainer, .nameSpentsContainer, .btnContainer, .titleContainer, .nameSpentsContainer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-bottom: 4px solid black;
+    /* padding: 10px; */
+}
+
+.btn-info{
+    margin: 10px;
+    font-weight: bold !important;
+}
+
+.titleContainer{
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font-size: 2em;
+    font-weight: bolder;
+    color: white;
+    text-shadow: 0 0 20px black;
+    margin: 10px;
+    padding: 10px;
+}
+
+.totalContainer, .titleNameSpentsContainer, .titlePeopleContainer, .titleSpentContainer{
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 25px;
+    text-align: center;
+    color: white;
+}
