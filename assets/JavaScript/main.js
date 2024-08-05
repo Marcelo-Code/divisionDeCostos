@@ -171,7 +171,7 @@ const printSpentsInDom = () => {
 const reset = () => {
     let arrayPeople = [];
     let arraySpents = [];
-    let request = confirm("Se eliminarán todos los daros, ¿estás seguro?");
+    let request = confirm("Se eliminarán todos los datos ¿estás seguro?");
     (request) ? (
         localStorage.setItem("arrayPeople", JSON.stringify(arrayPeople)),
         localStorage.setItem("arraySpents", JSON.stringify(arraySpents))
