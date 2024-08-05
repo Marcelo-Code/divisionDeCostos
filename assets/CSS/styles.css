@@ -18,15 +18,15 @@ body{
     background-image: url(../images/moneyBackground.jpg);
     background-size: 20%;
     background-position: center;
-    height: 90vh;
+    height: 100vh;
 }
 
 footer{
     width: 100vw;
-    height: 30vh;
+    height: 40vh;
     position: relative;
     bottom: 0;
-    margin-top: 20px;
+    margin-top: 140px;
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     text-align: center;
