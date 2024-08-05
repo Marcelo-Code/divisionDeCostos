@@ -1,5 +1,6 @@
 const btnSpend = document.getElementById("btnSpent");
 const btnPerson = document.getElementById("btnPerson");
+const btnReset = document.getElementById("btnReset")
 const spentContainer = document.getElementById("spentContainer");
 const peopleContainer = document.getElementById("peopleContainer");
 const totalContainer = document.getElementById("totalContainer");
@@ -167,6 +168,19 @@ const printSpentsInDom = () => {
     spentContainer.innerHTML = spentsAccumulator;
 }
 
+const reset = () => {
+    let arrayPeople = [];
+    let arraySpents = [];
+    let request = confirm("Se eliminarán todos los daros, ¿estás seguro?");
+    (request) ? (
+        localStorage.setItem("arrayPeople", JSON.stringify(arrayPeople)),
+        localStorage.setItem("arraySpents", JSON.stringify(arraySpents))
+    ) : null;
+    printSpentsInDom();
+    printPeopleInDom();
+    payCalculation();
+}
+
 btnSpend.addEventListener('click', () => {
     addSpent()
 });
@@ -174,6 +188,10 @@ btnSpend.addEventListener('click', () => {
 btnPerson.addEventListener('click', () => {
     addPeople()
 });
+
+btnReset.addEventListener('click', () =>{
+    reset();
+})
 
 //Imprimir saldo por persona
 

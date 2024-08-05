@@ -76,9 +76,11 @@ footer{
     width: 100vw;
 }
 
-.btn-info{
+.btn-top{
     margin: 10px;
     font-weight: bold !important;
+    width: 100px;
+    height: 60px;
 }
 
 .titleContainer{
