@@ -3,6 +3,11 @@
     src: url(../fonts/Matsury.ttf);
 }
 
+@font-face {
+    font-family: "stripescaps";
+    src: url(../fonts/Stripescaps-AEm7.ttf);
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -19,17 +24,24 @@ body{
 footer{
     width: 100vw;
     height: 30vh;
-    position: absolute;
+    position: relative;
     bottom: 0;
+    margin-top: 20px;
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     text-align: center;
-    font-size: 40px;
+    font-size: 45px;
     font-family: "matsury";
+    display: grid;
+    grid-template-columns: 2% 96% 2%;
+    grid-template-rows: auto auto auto;
 }
 
 .footerContainer{
-    margin-top: 20px;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
 }
 
 .card{
@@ -66,14 +78,14 @@ footer{
 }
 
 .titleContainer{
+    font-family: "stripescaps";
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
-    font-size: 2em;
-    font-weight: bolder;
-    color: white;
-    text-shadow: 0 0 20px black;
+    font-size: 2.5em;
+    color: #74a591;
     margin: 10px;
     padding: 10px;
+    width: 100vw;
 }
 
 .totalContainer, .titleNameSpentsContainer, .titlePeopleContainer, .titleSpentContainer{
