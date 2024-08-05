@@ -35,10 +35,11 @@ const recoverSpents = () => {
 
 const addSpent = () => {
     if (oneSpent.description = prompt("Ingresar descripción: ")) {
-        oneSpent.price = Number(prompt("ingresar valor: "));
-        let arraySpents = recoverSpents();
-        arraySpents.push(oneSpent);
-        localStorage.setItem("arraySpents", JSON.stringify(arraySpents));
+        if(oneSpent.price = Number(prompt("ingresar valor: "))){
+            let arraySpents = recoverSpents();
+            arraySpents.push(oneSpent);
+            localStorage.setItem("arraySpents", JSON.stringify(arraySpents));
+        }
         printSpentsInDom();
         totalCalculation();
         printPeopleInDom();
@@ -102,7 +103,6 @@ const addPeople = () => {
     let arrayPeople = recoverPeople();
     person.name = prompt("ingresar nombre persona: ");
     person.name ? (
-        // person.price = 0,
         arrayPeople.push(person),
         localStorage.setItem("arrayPeople", JSON.stringify(arrayPeople)),
         printSpentsInDom(),
