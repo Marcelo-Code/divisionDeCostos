@@ -162,7 +162,10 @@ const printSpentsInDom = () => {
             spent.name == 'asignar' ? (
                     spentColorName = 'yellow',
                     spentColorText = 'black'
-                ): null;
+                ): (
+                spentColorName = '',
+                spentColorText = ''
+                );
             
             spentsAccumulator += `<span class = "card"> <div>${spent.description}</div><div>$ ${spent.price}</div>   
                                     <button class="btn btn-danger" onclick = "deleteSpent(${indexSpent})"> Eliminar </button>
