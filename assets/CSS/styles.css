@@ -63,6 +63,22 @@ footer{
     padding: 10px;
 }
 
+.warningCard{
+    background-image: url(../images/yellowBackground.jpg);
+    background-position: center;
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: black;
+    text-shadow: 0 0 20px white;
+    align-content: center;
+    text-align: center;
+    box-shadow: 0 0 10px;
+}
+
 .btnEliminar{
     width: 70px;
     align-self: center;

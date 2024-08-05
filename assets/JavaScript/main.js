@@ -10,7 +10,7 @@ let nameSpentsContainer = document.getElementById("nameSpentsContainer");
 let oneSpent = {
     description: '',
     price: 0,
-    name: 'nombre'
+    name: 'asignar'
 };
 
 let person = {
@@ -36,7 +36,7 @@ const recoverSpents = () => {
 
 const addSpent = () => {
     if (oneSpent.description = prompt("Ingresar descripción: ")) {
-        if(oneSpent.price = Number(prompt("ingresar valor: "))){
+        if (oneSpent.price = Number(prompt("ingresar valor: "))) {
             let arraySpents = recoverSpents();
             arraySpents.push(oneSpent);
             localStorage.setItem("arraySpents", JSON.stringify(arraySpents));
@@ -77,18 +77,20 @@ const printPeopleInDom = () => {
     let arrayPeople = recoverPeople();
     let spentsAccumulator = ``;
 
-    //Asigna los gastos al array de personas
 
-    arrayPeople.forEach((person) => {
-        person.spent = 0;
-    })
-
-    arrayPeople.forEach((person, indexPerson) => {
-        arraySpents.forEach((spent) => {
-            spent.name == person.name ? person.spent += spent.price : null;
-        })
-        spentsAccumulator += `<span class = "card"><span>${person.name}</span><span>$ ${person.spent}</span><button class = "btn btn-danger" onclick = "deletePeople(${indexPerson})">Eliminar</button></span>`
-    })
+    arrayPeople.length > 0 ?
+        (
+            //Asigna los gastos al array de personas
+            arrayPeople.forEach((person) => {
+                person.spent = 0;
+            }),
+            arrayPeople.forEach((person, indexPerson) => {
+                arraySpents.forEach((spent) => {
+                    spent.name == person.name ? person.spent += spent.price : null;
+                })
+                spentsAccumulator += `<span class = "card"><span>${person.name}</span><span>$ ${person.spent}</span><button class = "btn btn-danger" onclick = "deletePeople(${indexPerson})">Eliminar</button></span>`
+            })
+        ) : spentsAccumulator = `<span class = "warningCard">Lista personas vacía</span>`;
     peopleContainer.innerHTML = spentsAccumulator;
 
     // console.log(arrayPeople)
@@ -147,16 +149,25 @@ const addName = (indexPerson, indexSpent) => {
 
 const printSpentsInDom = () => {
     let spentsAccumulator = ``;
-    arrayPeople = recoverPeople();
+    let arrayPeople = recoverPeople();
     let arraySpents = recoverSpents();
+    let spentColorName = '';
+    let spentColorText = '';
 
-    arraySpents ?
-
+    arraySpents.length > 0 ?
         arraySpents.forEach((spent, indexSpent) => {
+            
+            //En caso de que existan gastos sin asignar, debe resaltar con fondo amarillo y texto negro
+
+            spent.name == 'asignar' ? (
+                    spentColorName = 'yellow',
+                    spentColorText = 'black'
+                ): null;
+            
             spentsAccumulator += `<span class = "card"> <div>${spent.description}</div><div>$ ${spent.price}</div>   
                                     <button class="btn btn-danger" onclick = "deleteSpent(${indexSpent})"> Eliminar </button>
                                     <span style = "padding: 5px" class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> ${spent.name}
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style = "background-color: ${spentColorName}; color: ${spentColorText}"> ${spent.name}
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">`;
             arrayPeople.forEach((person, indexPerson) => {
@@ -164,7 +175,8 @@ const printSpentsInDom = () => {
             })
             spentsAccumulator += `</ul> </span> </span>`;
         }) :
-        null;
+        spentsAccumulator = `<span class = "warningCard">Lista de costos vacía</span>`
+
     spentContainer.innerHTML = spentsAccumulator;
 }
 
@@ -189,7 +201,7 @@ btnPerson.addEventListener('click', () => {
     addPeople()
 });
 
-btnReset.addEventListener('click', () =>{
+btnReset.addEventListener('click', () => {
     reset();
 })
 
@@ -197,6 +209,16 @@ btnReset.addEventListener('click', () =>{
 
 const payCalculation = () => {
     let arrayPeople = recoverPeople();
+    let arraySpents = recoverSpents();
+    let asignedSpendts = true;
+
+    //Recorre el array de costos, y en el caso de que existan costos sin asignar mostrará un cartel identificatorio
+
+    arraySpents.forEach((spent) => {
+        spent.name == "asignar" ? asignedSpendts = false : null;
+    })
+
+    console.log(asignedSpendts);
 
     //Calcular gasto total
 
@@ -215,6 +237,7 @@ const payCalculation = () => {
     let nameSpentsAccumulator = ``;
     let personaDebe = [];
     let personaHaber = [];
+    let n = 1;
 
     arrayPeople.forEach(person => {
         person.debt = (person.spent - spentPerCapita);
@@ -232,30 +255,30 @@ const payCalculation = () => {
     personaDebe.sort((a, b) => a.debt - b.debt);
     personaHaber.sort((a, b) => b.debt - a.debt);
 
-    let n = 1;
-    personaHaber.forEach(haber => {
-        personaDebe.forEach(debe => {
-            if (debe.debt < 0 && haber.debt > 0) {
 
-                nameSpentsAccumulator += `<span class = "card"><div>${debe.name}</div>`,
-
-                    (haber.debt + debe.debt) >= 0 ? (
-                        haber.debt += debe.debt,
-                        // console.log(debe.name + " con deuda " + debe.debt + " da " + debe.debt + " a " + haber.name + " y queda con saldo 0 " + " => " + haber.name + " tenía en haber " + (haber.debt - debe.debt) + " y queda con saldo " + haber.debt),
-                        nameSpentsAccumulator += `<div> paga $ ${-debe.debt} </div> <div> a ${haber.name}</div>`,
-                        debe.debt = 0
-                        // console.log("iteración " + n++)
-                    ) : (
-                        // console.log(debe.name + " con deuda " + debe.debt + " da " + haber.debt + " a " + haber.name + " y queda con saldo " + (debe.debt + haber.debt) + " => " + haber.name + " tenía en haber " + haber.debt + " y  queda con saldo 0"),
-                        nameSpentsAccumulator += `<div> paga $ ${haber.debt} </div> <div> a ${haber.name}</div>`,
-                        debe.debt += haber.debt,
-                        haber.debt = 0
-                        // console.log("iteración " + n++)
-                    );
-            }
-            nameSpentsAccumulator += `</span>`
-        })
-    })
+    asignedSpendts ? (
+            personaHaber.forEach(haber => {
+                personaDebe.forEach(debe => {
+                    if (debe.debt < 0 && haber.debt > 0) {
+                        nameSpentsAccumulator += `<span class = "card"><div>${debe.name}</div>`,
+                            (haber.debt + debe.debt) >= 0 ? (
+                                haber.debt += debe.debt,
+                                // console.log(debe.name + " con deuda " + debe.debt + " da " + debe.debt + " a " + haber.name + " y queda con saldo 0 " + " => " + haber.name + " tenía en haber " + (haber.debt - debe.debt) + " y queda con saldo " + haber.debt),
+                                nameSpentsAccumulator += `<div> paga $ ${-debe.debt} </div> <div> a ${haber.name}</div>`,
+                                debe.debt = 0
+                                // console.log("iteración " + n++)
+                            ) : (
+                                // console.log(debe.name + " con deuda " + debe.debt + " da " + haber.debt + " a " + haber.name + " y queda con saldo " + (debe.debt + haber.debt) + " => " + haber.name + " tenía en haber " + haber.debt + " y  queda con saldo 0"),
+                                nameSpentsAccumulator += `<div> paga $ ${haber.debt} </div> <div> a ${haber.name}</div>`,
+                                debe.debt += haber.debt,
+                                haber.debt = 0
+                                // console.log("iteración " + n++)
+                            );
+                    }
+                    nameSpentsAccumulator += `</span>`
+                })
+            })
+    ) : nameSpentsAccumulator = `<span class = "warningCard">Existen costos por asignar</span>`;
     nameSpentsContainer.innerHTML = nameSpentsAccumulator;
 }
 
