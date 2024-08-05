@@ -121,7 +121,7 @@ const deletePeople = (indexPerson) => {
     let arraySpents = recoverSpents();
 
     arraySpents.forEach(spent =>
-        spent.name == arrayPeople[indexPerson].name ? spent.name = "nombre" : null
+        spent.name == arrayPeople[indexPerson].name ? spent.name = "asignar" : null
     )
 
     arrayPeople.splice(indexPerson, 1);
